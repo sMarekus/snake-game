@@ -2,13 +2,16 @@ from turtle import Turtle
 
 FONT_STYLE = ('Comic Sans MS', 18, 'normal')
 
+with open("data.txt", mode="r") as file:
+    high_score = int(file.read())
+
 class Score(Turtle):
     def __init__(self):
         super().__init__()
         self.penup()
         self.color("white")
         self.score = 0
-        self.high_score = 0
+        self.high_score = high_score
         self.goto(x=0, y=260)
         self.update_score()
         self.hideturtle()
@@ -16,6 +19,9 @@ class Score(Turtle):
     def reset(self):
         if self.score > self.high_score:
             self.high_score = self.score
+
+            with open("data.txt", mode="w") as file:
+                file.write(f"{self.high_score}")
         self.score = 0
         self.update_score()
 
